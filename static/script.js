@@ -8,22 +8,38 @@ function fetchWeather() {
   let latInput = document.querySelector("#latInput").value;
   let apiKey = '8e715392ca450df5ba4cdaa47bd9978e';
   let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latInput}&lon=${lonInput}&appid=${apiKey}`;
-
-
-
+ 
   fetch(apiUrl)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok){
+        console.log("data invalid")
+      }
+      return response.json()
+      
+    })
     .then(data => {
       // Process the data returned by the API
-        const newpara = document.createElement("p")
-
-        newpara.textContent = data.list[0].weather[0].description 
-        weatherid.appendChild(newpara);
-
-      console.log(data);
+        showWeather(data); //pass data into function
     })
     .catch(error => {
       // Handle any errors that occurred during the API call
       console.error("Error fetching data:", error);
     });
+}
+
+function showWeather (data){
+  const newlist = document.querySelector("ul");
+  let ul = document.getElementById("list");
+
+  element1.textContent = data.list[0].weather[0].description 
+  element2.textContent = data.list[0].dt
+  element3.textContent = data.list[0].dt
+
+  newlist.appendChild(element1);
+  newlist.appendChild(element2);
+  newlist.appendChild(element3);
+
+console.log(data);
+console.log(JSON.stringify(data));
+
 }
