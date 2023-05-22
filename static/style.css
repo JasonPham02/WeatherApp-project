@@ -1,0 +1,36 @@
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-top: 50px;
+  }
+  
+  .input-container {
+    margin-top: 30px;
+  }
+  
+  #locationInput {
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  #fetchBtn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #fetchBtn:hover {
+    background-color: #45a049;
+  }
+  
+  #weatherInfoContainer {
+    margin-top: 30px;
+    font-size: 18px;
+  }
+  
