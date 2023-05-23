@@ -4,10 +4,9 @@ const weatherid = document.querySelector("#weatherInfoContainer");
 btn.addEventListener("click", fetchWeather);
 
 function fetchWeather() {
-  let lonInput = document.querySelector("#lonInput").value;
-  let latInput = document.querySelector("#latInput").value;
+  let input_user = document.querySelector("#input_city").value;
   let apiKey = '8e715392ca450df5ba4cdaa47bd9978e';
-  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latInput}&lon=${lonInput}&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${input_user}&appid=${apiKey}`;
  
   fetch(apiUrl)
     .then(response => {
@@ -15,7 +14,7 @@ function fetchWeather() {
         console.log("data invalid")
       }
       return response.json()
-      
+
     })
     .then(data => {
       // Process the data returned by the API
@@ -34,6 +33,8 @@ function showWeather (data){
   element1.textContent = data.list[0].weather[0].description 
   element2.textContent = data.list[0].dt
   element3.textContent = data.list[0].dt
+
+  
 
   newlist.appendChild(element1);
   newlist.appendChild(element2);
