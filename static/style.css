@@ -5,6 +5,7 @@ body {
 
 h1 {
   margin-top: 50px;
+  text-align: center;
 }
 
 .input-container {
@@ -35,19 +36,19 @@ h1 {
 
 #weatherInfoContainer {
   width: 50%;
-  border: 15px solid green;
+  border: 10px solid green;
   padding: 100px;
   margin: 20px auto;
 }
 
-#list {
-  list-style-type: none;
-  padding: 0;
-}
 
 /* Media Queries */
 @media (max-width: 576px) {
   /* CSS rules for mobile devices */
+  #weatherInfoContainer{
+    width: 40%;
+    
+  }
 }
 
 @media (min-width: 577px) and (max-width: 991px) {
