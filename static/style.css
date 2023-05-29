@@ -1,15 +1,61 @@
+html{
+  /* background color */
+position: absolute;
+left: 0px;
+right: 0px;
+top: 0px;
+bottom: 0px;
+
+/* background color */
+background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
+}
+
+h1{
+/* Header frame */
+/* Auto layout */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+isolation: isolate;
+
+position: absolute;
+width: 550px;
+height: 228px;
+left: calc(50% - 550px/2);
+top: calc(50% - 228px/2 - 394px);
+
+background: #FFFFFF;
+border-radius: 46px;
+}
+
+
 body {
   font-family: Arial, sans-serif;
   text-align: center;
 }
 
-h1 {
-  margin-top: 50px;
-  text-align: center;
-}
 
 .input-container {
-  margin-top: 30px;
+/* Frame 5 */
+
+
+/* Auto layout */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 548px;
+height: 129px;
+left: calc(50% - 548px/2);
+top: calc(50% - 129px/2 - 181px);
+background-color: white
 }
 
 .input_city {
@@ -17,28 +63,46 @@ h1 {
 }
 
 /* Common CSS rules for all screen sizes */
-#locationInput {
-  padding: 10px;
-  margin-right: 10px;
-}
-
-#fetchBtn {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
 
 #fetchBtn:hover {
   background-color: #45a049;
 }
 
 #weatherInfoContainer {
-  width: 50%;
-  border: 10px solid green;
-  padding: 100px;
-  margin: 20px auto;
+/* Frame 6 */
+
+
+/* Auto layout */
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 550px;
+height: 468px;
+left: calc(50% - 550px/2);
+top: calc(50% - 468px/2 + 131px);
+background-color: white;
+}
+
+footer{
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+position: absolute;
+width: 550px;
+height: 63px;
+left: 545px;
+top: 998px;
+background-color: white;
 }
 
 
@@ -47,7 +111,6 @@ h1 {
   /* CSS rules for mobile devices */
   #weatherInfoContainer{
     width: 40%;
-    
   }
 }
 
