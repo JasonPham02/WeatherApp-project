@@ -1,127 +1,121 @@
-html{
-  /* background color */
-position: absolute;
-left: 0px;
-right: 0px;
-top: 0px;
-bottom: 0px;
+/* Global Styles */
 
-/* background color */
-background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
-
-h1{
-/* Header frame */
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 0px;
-isolation: isolate;
-
-position: absolute;
-width: 550px;
-height: 228px;
-left: calc(50% - 550px/2);
-top: calc(50% - 228px/2 - 394px);
-
-background: #FFFFFF;
-border-radius: 46px;
-}
-
 
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
+  background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.container {
+  width: 90%;
+  max-width: 550px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  color: black;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  border: 2px solid #000000;
+  border-radius: 20px;
+  padding: 30px;
+  background-color: white;
+}
+
+h2 {
+  color: purple;
+}
 
 .input-container {
-/* Frame 5 */
-
-
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 0px;
-
-position: absolute;
-width: 548px;
-height: 129px;
-left: calc(50% - 548px/2);
-top: calc(50% - 129px/2 - 181px);
-background-color: white
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .input_city {
-  font-size: 1rem;
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
 }
 
-/* Common CSS rules for all screen sizes */
+#fetchBtn {
+  width: 100%;
+  max-width: 150px;
+  height: 40px;
+  margin-top: 10px;
+  font-size: 16px;
+  background-color: #45a049;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
 
 #fetchBtn:hover {
-  background-color: #45a049;
+  background-color: #3c8741;
 }
 
 #weatherInfoContainer {
-/* Frame 6 */
-
-
-/* Auto layout */
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 0px;
-
-position: absolute;
-width: 550px;
-height: 468px;
-left: calc(50% - 550px/2);
-top: calc(50% - 468px/2 + 131px);
-background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-footer{
-
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-padding: 10px;
-gap: 10px;
-
-position: absolute;
-width: 550px;
-height: 63px;
-left: 545px;
-top: 998px;
-background-color: white;
+#weatherInfoContainer p{
+  color: red
 }
-
-
 /* Media Queries */
-@media (max-width: 576px) {
+@media (min-width: 576px) {
   /* CSS rules for mobile devices */
-  #weatherInfoContainer{
-    width: 40%;
+  h1 {
+    font-size: 35px;
+    margin-bottom: 20px;
   }
-}
 
-@media (min-width: 577px) and (max-width: 991px) {
-  /* CSS rules for smaller laptops */
-}
+  .input_city {
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: none;
+  }
 
-@media (min-width: 992px) and (max-width: 1199px) {
-  /* CSS rules for medium-sized laptops */
-}
-
-@media (min-width: 1200px) {
-  /* CSS rules for larger laptops */
+  #fetchBtn {
+    width: 100%;
+    max-width: 150px;
+    height: 40px;
+    margin-top: 10px;
+    font-size: 16px;
+    background-color: #45a049;
+    border: none;
+    border-radius: 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
 }
