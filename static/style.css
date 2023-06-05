@@ -13,14 +13,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
-.container {
-  width: 90%;
+#wrapper_main {
   max-width: 550px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
@@ -88,6 +87,8 @@ h2 {
 #weatherInfoContainer p{
   color: red
 }
+
+
 /* Media Queries */
 @media (min-width: 576px) {
   /* CSS rules for mobile devices */

@@ -1,60 +1,53 @@
 let btn = document.querySelector("#fetchBtn");
-const weatherid = document.querySelector("#weatherInfoContainer");
+const weatherInfoContainer = document.querySelector("#weatherInfoContainer");
 let next_btn = document.querySelector("#next_btn");
 let prev_btn = document.querySelector("#prev_btn");
+let hidB = document.getElementById("hidden");
+const toggleInput = document.querySelector(".toggle-input");
+const toggleLabel = document.querySelector(".toggle-label");
+const inputCity = document.querySelector("#input_city");
+let data; // Declare the 'data' variable globally
 
-
-function convertTime(timestamp){
-  const date = new Date(timestamp * 1000);
-  const options = {
-     year: "numeric", 
-     month: "numeric", 
-     day: "numeric"}
-  return date.toLocaleString("en-US", options);
-}
-
-const input = document.getElementById("input_city");
-input.addEventListener("keydown", function(event){
-  if (event.key === "Enter"){
+inputCity.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
     event.preventDefault();
     fetchWeather();
-  }   
-})
-
-btn.addEventListener('click', function(e) {
-      let valid = document.querySelector("#input_city").value;
-      if (valid === ""){
-        alert("Do not leave blank")
-        return false;
-      }
+  }
 });
 
+btn.addEventListener("click", function() {
+  let valid = inputCity.value;
+  if (valid === "") {
+    alert("Do not leave blank");
+    return false;
+  }
+  fetchWeather();
+});
 
-btn.addEventListener("click", fetchWeather);
+toggleInput.addEventListener("change", function() {
+  updateTemperature(); // No need to pass 'data' as a parameter
+});
 
-function fetchWeather() {
-  let input_user = document.querySelector("#input_city").value;
-  let apiKey = '8e715392ca450df5ba4cdaa47bd9978e';
+async function fetchWeather() {
+  let input_user = inputCity.value;
+  let apiKey = "8e715392ca450df5ba4cdaa47bd9978e";
   let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${input_user}&appid=${apiKey}`;
 
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok){
-        console.log("data invalid")
-      }
-      return response.json()
-    })
-    .then(data => {
-      // Process the data returned by the API
-        showWeather(data); //pass data into function
-    })
-    .catch(error => {
-      // Handle any errors that occurred during the API call
-      console.error("Error fetching data:", error);
-    });
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      console.log("data invalid");
+      return;
+    }
+    data = await response.json(); // Assign the fetched data to the global 'data' variable
+    showWeather(data);
+    hidB.style.display = "block";
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
 }
 
-function showWeather (data){
+function showWeather(data) {
   // Clear previous data
   weatherInfoContainer.innerHTML = "";
 
@@ -64,27 +57,44 @@ function showWeather (data){
   elementCity.textContent = `State/City: ${city}`;
   weatherInfoContainer.appendChild(elementCity);
 
-  let elementCountry = document.createElement("h2")
+  let elementCountry = document.createElement("h2");
   const country = data.city.country;
   elementCountry.textContent = `Country: ${country}`;
-  weatherInfoContainer.appendChild(elementCountry)
+  weatherInfoContainer.appendChild(elementCountry);
 
   let element1 = document.createElement("p");
-  element1.textContent = convertTime(data.list[0].dt);
+  const date = convertTime(data.list[0].dt);
+  element1.textContent = `Today date: ${date}`;
   weatherInfoContainer.appendChild(element1);
 
   let element2 = document.createElement("p");
-  tempdata = data.list[0].main.temp;
-  const celsius = tempdata - 273.15;
-  element2.textContent = "Temperature: " + celsius.toFixed(2) + " C"
+  const tempdata = data.list[0].main.temp;
+  const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
+  element2.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
   weatherInfoContainer.appendChild(element2);
-
-  let element3 = document.createElement("p");
-  element3.textContent = convertTime(data.list[7].dt);
-  weatherInfoContainer.appendChild(element3);
-
-console.log(data);
-console.log(JSON.stringify(data));
 }
 
+function updateTemperature() {
+  const temperaturePara = document.querySelector("#weatherInfoContainer p:nth-child(4)");
+  const tempdata = data.list[0].main.temp;
+  const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
+  temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+}
 
+function celsius(tempdata) {
+  return tempdata - 273.15;
+}
+
+function fahrenheit(tempdata) {
+  return (tempdata - 273.15) * (9 / 5) + 32;
+}
+
+function convertTime(timestamp) {
+  const date = new Date(timestamp * 1000);
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric"
+  };
+  return date.toLocaleString("en-US", options);
+}
