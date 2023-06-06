@@ -6,7 +6,9 @@ let hidB = document.getElementById("hidden");
 const toggleInput = document.querySelector(".toggle-input");
 const toggleLabel = document.querySelector(".toggle-label");
 const inputCity = document.querySelector("#input_city");
-let data; // Declare the 'data' variable globally
+let i = 0;
+let dataObj;
+let todayTemp, tomorTemp, yesTemp;
 
 inputCity.addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
@@ -16,7 +18,7 @@ inputCity.addEventListener("keydown", function(event) {
 });
 
 btn.addEventListener("click", function() {
-  let valid = inputCity.value;
+  let valid = inputCity.value.trim();
   if (valid === "") {
     alert("Do not leave blank");
     return false;
@@ -25,7 +27,29 @@ btn.addEventListener("click", function() {
 });
 
 toggleInput.addEventListener("change", function() {
-  updateTemperature(); // No need to pass 'data' as a parameter
+  if (todayTemp) {
+    todayTemp.updateTemperature();
+  }
+  if (tomorTemp) {
+    tomorTemp.updateTemperature();
+  }
+  if (yesTemp) {
+    yesTemp.updateTemperature();
+  }
+});
+
+next_btn.addEventListener("click", function() {
+  i += 4;
+  if (dataObj) {
+    updateWeatherData();
+  }
+});
+
+prev_btn.addEventListener("click", function() {
+  i -= 4;
+  if (dataObj) {
+    updateWeatherData();
+  }
 });
 
 async function fetchWeather() {
@@ -39,46 +63,69 @@ async function fetchWeather() {
       console.log("data invalid");
       return;
     }
-    data = await response.json(); // Assign the fetched data to the global 'data' variable
-    showWeather(data);
+    dataObj = await response.json(); // Assign the fetched data to the global 'dataObj' variable
+    updateWeatherData();
+
     hidB.style.display = "block";
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
-function showWeather(data) {
-  // Clear previous data
-  weatherInfoContainer.innerHTML = "";
+function updateWeatherData() {
+  // Check if the current index is within the data range
+  if (i >= 0 && i < dataObj.list.length) {
+    const dataCity = dataObj.city.name;
+    const dataCountry = dataObj.city.country;
+    const dataTime = dataObj.list[i].dt;
+    const dataTemp = dataObj.list[i].main.temp;
 
-  // Create new elements and append them to the container
-  let elementCity = document.createElement("h2");
-  const city = data.city.name;
-  elementCity.textContent = `State/City: ${city}`;
-  weatherInfoContainer.appendChild(elementCity);
-
-  let elementCountry = document.createElement("h2");
-  const country = data.city.country;
-  elementCountry.textContent = `Country: ${country}`;
-  weatherInfoContainer.appendChild(elementCountry);
-
-  let element1 = document.createElement("p");
-  const date = convertTime(data.list[0].dt);
-  element1.textContent = `Today date: ${date}`;
-  weatherInfoContainer.appendChild(element1);
-
-  let element2 = document.createElement("p");
-  const tempdata = data.list[0].main.temp;
-  const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
-  element2.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
-  weatherInfoContainer.appendChild(element2);
+    // Create a new infoWeather object based on the current index
+    todayTemp = new infoWeather(dataCity, dataCountry, dataTime, dataTemp);
+    todayTemp.showWeather();
+  }
 }
 
-function updateTemperature() {
-  const temperaturePara = document.querySelector("#weatherInfoContainer p:nth-child(4)");
-  const tempdata = data.list[0].main.temp;
-  const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
-  temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+class infoWeather {
+  constructor(dataCity, dataCountry, dataTime, dataTemp) {
+    this.dataCity = dataCity;
+    this.dataCountry = dataCountry;
+    this.dataTime = dataTime;
+    this.dataTemp = dataTemp;
+  }
+
+  showWeather() {
+    // Clear previous data
+    weatherInfoContainer.innerHTML = "";
+
+    // Create new elements and append them to the container
+    let elementCity = document.createElement("h2");
+    const city = this.dataCity;
+    elementCity.textContent = `State/City: ${city}`;
+    weatherInfoContainer.appendChild(elementCity);
+
+    let elementCountry = document.createElement("h2");
+    const country = this.dataCountry;
+    elementCountry.textContent = `Country: ${country}`;
+    weatherInfoContainer.appendChild(elementCountry);
+
+    let elementDate = document.createElement("p");
+    const date = convertTime(this.dataTime);
+    elementDate.textContent = `Today date: ${date}`;
+    weatherInfoContainer.appendChild(elementDate);
+
+    let elementTemp = document.createElement("p");
+    weatherInfoContainer.appendChild(elementTemp);
+
+    this.updateTemperature(); // Call updateTemperature method after showing weather
+  }
+
+  updateTemperature() {
+    const temperaturePara = document.querySelector("#weatherInfoContainer p:nth-child(4)");
+    const tempdata = this.dataTemp;
+    const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
+    temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+  }
 }
 
 function celsius(tempdata) {
