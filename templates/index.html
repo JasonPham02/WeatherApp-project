@@ -2,12 +2,14 @@
 <html>
 <head>
   <title>Weather App</title>
-  <link rel="stylesheet" type="text/css" href="static/style.css">
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" type="text/css" href="static/switch.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
+
 <body>
-  
 <div id="wrapper_main">
+
   <h1>Weather App</h1>
   <div class="input-container">
     <input class = "input_city" type="text" id="input_city" placeholder="Enter City" name ="input_form">
@@ -16,9 +18,19 @@
   <div id="weatherInfoContainer">
 
   </div>
-<!--
-  <button id="next_btn">Next</button>
-  <button id="prev_btn">Previous</button> --> 
+
+  <div id="hidden">
+    <label class="toggle">
+      <input class="toggle-input" type="checkbox" />
+      <span class="toggle-label" celsius="&#8451" fahrenheit="&#8457"></span>
+      <span class="toggle-handle"></span>
+    </label>
+
+    <button id="prev_btn">Previous</button> 
+    <button id="next_btn">Next</button>
+  </div>
+
+
 </div>
 
   <script src="static/script.js"></script>
