@@ -31,12 +31,15 @@ btn.addEventListener("click", function() {
 });
 
 toggleInput.addEventListener("change", function() {
+  if (todayTemp) {
     todayTemp.updateTemperature();
-
+  }
+  if (tomorTemp) {
     tomorTemp.updateTemperature();
-
+  }
+  if (nextTemp) {
     nextTemp.updateTemperature();
-
+  }
 });
 
 async function fetchWeather() {
@@ -47,7 +50,7 @@ async function fetchWeather() {
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {
-      console.log("data invalid");
+      console.log("Data invalid");
       return;
     }
     dataObj = await response.json();
@@ -106,21 +109,30 @@ class infoWeather {
 
     let elementDate = document.createElement("p");
     const date = convertTime(this.dataTime);
-    elementDate.textContent = `Today date: ${date}`;
+    
+      if (container === info1){
+        elementDate.textContent = `Today date: ${date}`;
+      } else{
+        elementDate.textContent = `Date: ${date}`;
+      }
+    
     container.appendChild(elementDate);
 
     let elementTemp = document.createElement("p");
     container.appendChild(elementTemp);
 
-    this.updateTemperature(elementTemp, container); // Pass the elementTemp to updateTemperature method
+    this.container = container; // Store the container reference in the object
+    this.updateTemperature(); // Call updateTemperature without arguments
   }
 
-  updateTemperature(temperaturePara, container) {
+  updateTemperature() {
+    const temperaturePara = this.container.querySelector("p:nth-child(4)");
     const tempdata = this.dataTemp;
     const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
     temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
   }
 }
+
 
 function celsius(tempdata) {
   return tempdata - 273.15;
