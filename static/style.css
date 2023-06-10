@@ -76,24 +76,39 @@ h2 {
 
 #slide-container{
   display: flex;
-  justify-content: space-between;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  justify-content: flex-start;
+  gap: 10px;
+  
 }
 
 .weatherinforContainer {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+
+  flex: 0 0 100%;
+  width: 5px;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+  transform: translateX(0%);
+
   
-  padding: 20px;
   background-color: #FFFFFF;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.weatherinforContainer{
-  color: red
+
+.weatherinforContainer.hide {
+  transform: translateX(-100%) !important;
 }
 
+.weatherinforContainer p{
+  color: red;
+}
 
 /* Media Queries */
 @media (min-width: 576px) {
