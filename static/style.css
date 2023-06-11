@@ -24,20 +24,28 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
-  color: black;
-  font-size: 32px;
-  font-weight: bold;
+ #head-container{
   margin-bottom: 30px;
   text-align: center;
   border: 2px solid #000000;
   border-radius: 20px;
-  padding: 30px;
+  padding: 20px;
   background-color: white;
 }
 
-h2 {
+#head-container h1{
+  color: black;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+h2{
   color: purple;
+}
+
+h2:nth-child(2){
+  color: purple;
+  margin-top: 0px;
 }
 
 .input-container {
@@ -92,7 +100,7 @@ h2 {
   flex: 0 0 100%;
   width: 5px;
   scroll-snap-align: start;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   transform: translateX(0%);
 
   

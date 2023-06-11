@@ -45,20 +45,52 @@ toggleInput.addEventListener("change", function() {
 async function fetchWeather() {
   let input_user = inputCity.value;
   let apiKey = "8e715392ca450df5ba4cdaa47bd9978e";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${input_user}&appid=${apiKey}`;
+  let apiData = `https://api.openweathermap.org/data/2.5/forecast?q=${input_user}&appid=${apiKey}`;
 
   try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) {
+    const responseData = await fetch(apiData);
+    if (!responseData.ok) {
       console.log("Data invalid");
       return;
     }
-    dataObj = await response.json();
+    dataObj = await responseData.json();
     updateWeatherData();
+    fetchIcon();
     hidB.style.display = "block";
   } catch (error) {
     console.error("Error fetching data:", error);
   }
+}
+
+async function fetchIcon() {
+  if (!dataObj || !dataObj.list) {
+    console.log("Invalid dataObj structure");
+    return;
+  }
+
+  const dataIcon = dataObj.list[0].weather[0].icon;
+  const apiIcon = `https://openweathermap.org/img/wn/${dataIcon}@2x.png`;
+
+  try {
+    const responseIcon = await fetch(apiIcon);
+    if (!responseIcon.ok) {
+      console.log("Icon Invalid");
+      return;
+    }
+    const iconBlob = await responseIcon.blob();
+    const iconURL = URL.createObjectURL(iconBlob);
+
+    addingIcon(iconURL);
+  } catch (error) {
+    console.error("Error fetching icon:", error);
+  }
+}
+
+function addingIcon(iconURL) {
+  const iconIMG = document.createElement("img");
+  iconIMG.src = iconURL;
+  const firstDiv = document.getElementById("head-container");
+  firstDiv.appendChild(iconIMG);
 }
 
 function updateWeatherData() {
@@ -69,7 +101,7 @@ function updateWeatherData() {
     const dataCountry = dataObj.city.country;
     const dataTime = dataObj.list[j].dt;
     const dataTemp = dataObj.list[j].main.temp;
-
+    const dataIcon = dataObj.list[j].weather[0].icon;
     // Create a new infoWeather object based on the current index
     if (i === 0) {
       todayTemp = new infoWeather(dataCity, dataCountry, dataTime, dataTemp);
@@ -83,6 +115,7 @@ function updateWeatherData() {
     }
   }
 }
+
 
 class infoWeather {
   constructor(dataCity, dataCountry, dataTime, dataTemp) {
@@ -109,13 +142,11 @@ class infoWeather {
 
     let elementDate = document.createElement("p");
     const date = convertTime(this.dataTime);
-    
       if (container === info1){
         elementDate.textContent = `Today date: ${date}`;
       } else{
         elementDate.textContent = `Date: ${date}`;
       }
-    
     container.appendChild(elementDate);
 
     let elementTemp = document.createElement("p");
@@ -132,7 +163,6 @@ class infoWeather {
     temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
   }
 }
-
 
 function celsius(tempdata) {
   return tempdata - 273.15;
@@ -151,3 +181,4 @@ function convertTime(timestamp) {
   };
   return date.toLocaleString("en-US", options);
 }
+
