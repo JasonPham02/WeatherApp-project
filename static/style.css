@@ -31,7 +31,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   background-color: white;
-  display: flex;
+  display: block;
 }
 
 #head-container h1{
@@ -43,6 +43,7 @@ body {
 #head-container img{
   margin: 0px;
   display: flex;
+  width: max-content;
 }
 
 p{
@@ -59,8 +60,6 @@ p{
 #icon-div{
   display: flex;
 }
-
-
 
 
 h2{

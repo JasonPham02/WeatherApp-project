@@ -86,6 +86,8 @@ async function fetchIcon() {
 }
 
 function addingIcon(iconURL) {
+  const headContainer = document.getElementById("head-container")
+  headContainer.style.display = "flex"
 
   const iconIMG = document.createElement("img");
   iconIMG.src = iconURL;
@@ -110,7 +112,7 @@ function updateWeatherData() {
       const city = dataCity;
       elementCity.textContent = `State/City: ${city}`;
 
-      const headInfo = document.getElementById("right")
+      const headInfo = document.getElementById("head-info")
       headInfo.innerHTML = " ";
       headInfo.appendChild(elementCity);
   
