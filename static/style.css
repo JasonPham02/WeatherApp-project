@@ -31,6 +31,7 @@ body {
   border-radius: 20px;
   padding: 20px;
   background-color: white;
+  display: flex;
 }
 
 #head-container h1{
@@ -38,6 +39,29 @@ body {
   font-size: 32px;
   font-weight: bold;
 }
+
+#head-container img{
+  margin: 0px;
+  display: flex;
+}
+
+p{
+  color: red;
+}
+
+#right {
+  display: flex;
+  flex-direction: column;
+
+  margin: auto;
+}
+
+#icon-div{
+  display: flex;
+}
+
+
+
 
 h2{
   color: purple;

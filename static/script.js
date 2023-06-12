@@ -67,7 +67,6 @@ async function fetchIcon() {
     console.log("Invalid dataObj structure");
     return;
   }
-
   const dataIcon = dataObj.list[0].weather[0].icon;
   const apiIcon = `https://openweathermap.org/img/wn/${dataIcon}@2x.png`;
 
@@ -87,30 +86,53 @@ async function fetchIcon() {
 }
 
 function addingIcon(iconURL) {
+
   const iconIMG = document.createElement("img");
   iconIMG.src = iconURL;
-  const firstDiv = document.getElementById("head-container");
-  firstDiv.appendChild(iconIMG);
+
+  const firstDiv = document.getElementById("firsth1");
+  firstDiv.innerHTML = " ";
+
+  const iconDiv = document.getElementById("icon-div");
+  iconDiv.innerHTML = " ";
+  iconDiv.appendChild(iconIMG);
 }
+
 
 function updateWeatherData() {
   // Check if the current index is within the data range
+      // Create new elements and append them to the head-info container
+      
+      const dataCity = dataObj.city.name;
+      const dataCountry = dataObj.city.country;
+
+      let elementCity = document.createElement("h2");
+      const city = dataCity;
+      elementCity.textContent = `State/City: ${city}`;
+
+      const headInfo = document.getElementById("right")
+      headInfo.innerHTML = " ";
+      headInfo.appendChild(elementCity);
+  
+      let elementCountry = document.createElement("h2");
+      const country = dataCountry;
+      elementCountry.textContent = `Country: ${country}`;
+      headInfo.appendChild(elementCountry);
+
   for (let i = 0; i < 3; i++) {
     let j = i * 8;
-    const dataCity = dataObj.city.name;
-    const dataCountry = dataObj.city.country;
     const dataTime = dataObj.list[j].dt;
     const dataTemp = dataObj.list[j].main.temp;
-    const dataIcon = dataObj.list[j].weather[0].icon;
+    
     // Create a new infoWeather object based on the current index
     if (i === 0) {
-      todayTemp = new infoWeather(dataCity, dataCountry, dataTime, dataTemp);
+      todayTemp = new infoWeather(dataTime, dataTemp);
       todayTemp.showWeather(info1); // Pass the info1 element as an argument
     } else if (i === 1) {
-      tomorTemp = new infoWeather(dataCity, dataCountry, dataTime, dataTemp);
+      tomorTemp = new infoWeather(dataTime, dataTemp);
       tomorTemp.showWeather(info2); // Pass the info2 element as an argument
     } else if (i === 2) {
-      nextTemp = new infoWeather(dataCity, dataCountry, dataTime, dataTemp);
+      nextTemp = new infoWeather(dataTime, dataTemp);
       nextTemp.showWeather(info3); // Pass the info3 element as an argument
     }
   }
@@ -118,9 +140,7 @@ function updateWeatherData() {
 
 
 class infoWeather {
-  constructor(dataCity, dataCountry, dataTime, dataTemp) {
-    this.dataCity = dataCity;
-    this.dataCountry = dataCountry;
+  constructor(dataTime, dataTemp) {
     this.dataTime = dataTime;
     this.dataTemp = dataTemp;
   }
@@ -128,17 +148,6 @@ class infoWeather {
   showWeather(container) {
     // Clear previous data
     container.innerHTML = "";
-
-    // Create new elements and append them to the container
-    let elementCity = document.createElement("h2");
-    const city = this.dataCity;
-    elementCity.textContent = `State/City: ${city}`;
-    container.appendChild(elementCity);
-
-    let elementCountry = document.createElement("h2");
-    const country = this.dataCountry;
-    elementCountry.textContent = `Country: ${country}`;
-    container.appendChild(elementCountry);
 
     let elementDate = document.createElement("p");
     const date = convertTime(this.dataTime);
@@ -157,7 +166,7 @@ class infoWeather {
   }
 
   updateTemperature() {
-    const temperaturePara = this.container.querySelector("p:nth-child(4)");
+    const temperaturePara = this.container.querySelector("p:nth-child(2)");
     const tempdata = this.dataTemp;
     const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
     temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
