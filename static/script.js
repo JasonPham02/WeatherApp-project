@@ -54,6 +54,7 @@ async function fetchWeather() {
       return;
     }
     dataObj = await responseData.json();
+    console.log(dataObj);
     updateWeatherData();
     fetchIcon();
     hidB.style.display = "block";
@@ -125,16 +126,17 @@ function updateWeatherData() {
     let j = i * 8;
     const dataTime = dataObj.list[j].dt;
     const dataTemp = dataObj.list[j].main.temp;
+    const dataDescript = dataObj.list[j].weather[0].description
     
     // Create a new infoWeather object based on the current index
     if (i === 0) {
-      todayTemp = new infoWeather(dataTime, dataTemp);
+      todayTemp = new infoWeather(dataTime, dataTemp, dataDescript);
       todayTemp.showWeather(info1); // Pass the info1 element as an argument
     } else if (i === 1) {
-      tomorTemp = new infoWeather(dataTime, dataTemp);
+      tomorTemp = new infoWeather(dataTime, dataTemp, dataDescript);
       tomorTemp.showWeather(info2); // Pass the info2 element as an argument
     } else if (i === 2) {
-      nextTemp = new infoWeather(dataTime, dataTemp);
+      nextTemp = new infoWeather(dataTime, dataTemp, dataDescript);
       nextTemp.showWeather(info3); // Pass the info3 element as an argument
     }
   }
@@ -142,9 +144,10 @@ function updateWeatherData() {
 
 
 class infoWeather {
-  constructor(dataTime, dataTemp) {
+  constructor(dataTime, dataTemp, dataDescript) {
     this.dataTime = dataTime;
     this.dataTemp = dataTemp;
+    this.dataDescript = dataDescript;
   }
 
   showWeather(container) {
@@ -163,6 +166,11 @@ class infoWeather {
     let elementTemp = document.createElement("h2");
     container.appendChild(elementTemp);
 
+    let elementDescript = document.createElement("h2");
+    const desData = this.dataDescript;
+    elementDescript.textContent = `Description: ${desData}`;
+    container.appendChild(elementDescript);
+    
     this.container = container; // Store the container reference in the object
     this.updateTemperature(); // Call updateTemperature without arguments
   }
