@@ -151,7 +151,7 @@ class infoWeather {
     // Clear previous data
     container.innerHTML = "";
 
-    let elementDate = document.createElement("p");
+    let elementDate = document.createElement("h2");
     const date = convertTime(this.dataTime);
       if (container === info1){
         elementDate.textContent = `Today date: ${date}`;
@@ -160,7 +160,7 @@ class infoWeather {
       }
     container.appendChild(elementDate);
 
-    let elementTemp = document.createElement("p");
+    let elementTemp = document.createElement("h2");
     container.appendChild(elementTemp);
 
     this.container = container; // Store the container reference in the object
@@ -168,7 +168,7 @@ class infoWeather {
   }
 
   updateTemperature() {
-    const temperaturePara = this.container.querySelector("p:nth-child(2)");
+    const temperaturePara = this.container.querySelector("h2:nth-child(2)");
     const tempdata = this.dataTemp;
     const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
     temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
