@@ -3,6 +3,7 @@
 html{
   height: 100%;
   background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
+  font-size: 16px;
 }
 
 body {
@@ -136,9 +137,20 @@ body {
 }
 
 .weatherinforContainer h2{
-  color: red;
-  font-size: 1em;
+
 }
+
+.weatherinforContainer h2:first-child{
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.weatherinforContainer h2:nth-child(3){
+  margin-top: 0px;
+}
+
+
+
 
 /* Media Queries */
 @media (min-width: 576px) {
