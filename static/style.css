@@ -1,5 +1,4 @@
 /* Global Styles */
-
 html{
   height: 100%;
   background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
@@ -12,7 +11,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 #wrapper_main {
@@ -131,30 +130,30 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 .weatherinforContainer.hide {
   transform: translateX(-100%) !important;
 }
 
 .weatherinforContainer h2{
-
-}
-
-.weatherinforContainer h2:first-child{
   font-size: 1.5em;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  color: red;
 }
 
-.weatherinforContainer h2:nth-child(3){
+.weatherinforContainer p {
+  font-size: 20px;
   margin-top: 0px;
 }
 
 
-
-
 /* Media Queries */
-@media (min-width: 576px) {
+@media (max-width: 576px) {
   /* CSS rules for mobile devices */
+
+  body{
+    margin-top: 50px;
+  }
+
   h1 {
     font-size: 35px;
     margin-bottom: 20px;

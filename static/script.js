@@ -1,15 +1,11 @@
 const inputCity = document.querySelector("#input_city");
-
 const info1 = document.getElementById("info1");
 const info2 = document.getElementById("info2");
 const info3 = document.getElementById("info3");
-
 const toggleInput = document.querySelector(".toggle-input");
 const toggleLabel = document.querySelector(".toggle-label");
 let btn = document.querySelector("#fetchBtn");
-
 let hidB = document.getElementById("hidden");
-
 let i = 0;
 let dataObj;
 let todayTemp, tomorTemp, nextTemp;
@@ -79,8 +75,8 @@ async function fetchIcon() {
     }
     const iconBlob = await responseIcon.blob();
     const iconURL = URL.createObjectURL(iconBlob);
-
     addingIcon(iconURL);
+
   } catch (error) {
     console.error("Error fetching icon:", error);
   }
@@ -101,94 +97,107 @@ function addingIcon(iconURL) {
   iconDiv.appendChild(iconIMG);
 }
 
-
 function updateWeatherData() {
-  // Check if the current index is within the data range
-      // Create new elements and append them to the head-info container
-      
-      const dataCity = dataObj.city.name;
-      const dataCountry = dataObj.city.country;
+  const dataCity = dataObj.city.name;
+  const dataCountry = dataObj.city.country;
 
-      let elementCity = document.createElement("h2");
-      const city = dataCity;
-      elementCity.textContent = `State/City: ${city}`;
+  let elementCity = document.createElement("h2");
+  const city = dataCity;
+  elementCity.textContent = `State/City: ${city}`;
 
-      const headInfo = document.getElementById("head-info")
-      headInfo.innerHTML = " ";
-      headInfo.appendChild(elementCity);
-  
-      let elementCountry = document.createElement("h2");
-      const country = dataCountry;
-      elementCountry.textContent = `Country: ${country}`;
-      headInfo.appendChild(elementCountry);
+  const headInfo = document.getElementById("head-info")
+  headInfo.innerHTML = " ";
+  headInfo.appendChild(elementCity);
+
+  let elementCountry = document.createElement("h2");
+  const country = dataCountry;
+  elementCountry.textContent = `Country: ${country}`;
+  headInfo.appendChild(elementCountry);
 
   for (let i = 0; i < 3; i++) {
     let j = i * 8;
     const dataTime = dataObj.list[j].dt;
     const dataTemp = dataObj.list[j].main.temp;
+    const dataTempMax = dataObj.list[j].main.temp_max;
+    const dataTempMin = dataObj.list[j].main.temp_min;
     const dataDescript = dataObj.list[j].weather[0].description
-    
-    // Create a new infoWeather object based on the current index
+
     if (i === 0) {
-      todayTemp = new infoWeather(dataTime, dataTemp, dataDescript);
-      todayTemp.showWeather(info1); // Pass the info1 element as an argument
+      todayTemp = new infoWeather(dataTime, dataTemp, dataTempMax, dataTempMin, dataDescript);
+      todayTemp.showWeather(info1);
     } else if (i === 1) {
-      tomorTemp = new infoWeather(dataTime, dataTemp, dataDescript);
-      tomorTemp.showWeather(info2); // Pass the info2 element as an argument
+      tomorTemp = new infoWeather(dataTime, dataTemp, dataTempMax, dataTempMin, dataDescript);
+      tomorTemp.showWeather(info2);
     } else if (i === 2) {
-      nextTemp = new infoWeather(dataTime, dataTemp, dataDescript);
-      nextTemp.showWeather(info3); // Pass the info3 element as an argument
+      nextTemp = new infoWeather(dataTime, dataTemp,dataTempMax, dataTempMin, dataDescript);
+      nextTemp.showWeather(info3);
     }
   }
 }
 
-
 class infoWeather {
-  constructor(dataTime, dataTemp, dataDescript) {
+  constructor(dataTime, dataTemp, dataTempMax, dataTempMin, dataDescript) {
     this.dataTime = dataTime;
     this.dataTemp = dataTemp;
+    this.dataTempMax = dataTempMax;
+    this.dataTempMin = dataTempMin;
     this.dataDescript = dataDescript;
   }
 
   showWeather(container) {
-    // Clear previous data
     container.innerHTML = "";
 
     let elementDate = document.createElement("h2");
     const date = convertTime(this.dataTime);
-      if (container === info1){
-        elementDate.textContent = `Today date: ${date}`;
-      } else{
-        elementDate.textContent = `Date: ${date}`;
-      }
+    if (container === info1){
+      elementDate.textContent = `Today date: ${date}`;
+    } else{
+      elementDate.textContent = `Date: ${date}`;
+    }
     container.appendChild(elementDate);
 
-    let elementTemp = document.createElement("h2");
+    let elementTemp = document.createElement("p");
     container.appendChild(elementTemp);
 
-    let elementDescript = document.createElement("h2");
+    let elementTempMin = document.createElement("p");
+    container.appendChild(elementTempMin);
+
+    let elementTempMax = document.createElement("p");
+    container.appendChild(elementTempMax);
+
+    let elementDescript = document.createElement("p");
     const desData = this.dataDescript;
     elementDescript.textContent = `Description: ${desData}`;
     container.appendChild(elementDescript);
-    
-    this.container = container; // Store the container reference in the object
-    this.updateTemperature(); // Call updateTemperature without arguments
+
+    this.container = container;
+    this.updateTemperature();
   }
 
   updateTemperature() {
-    const temperaturePara = this.container.querySelector("h2:nth-child(2)");
+    const temperatureInfo = this.container.querySelector("p:nth-child(2)");
     const tempdata = this.dataTemp;
     const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
-    temperaturePara.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+    temperatureInfo.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+
+    const temperatureInfoMin = this.container.querySelector("p:nth-child(3)");
+    const tempdataMin = this.dataTempMin;
+    const temperatureMin = toggleInput.checked ? celsius(tempdataMin) : fahrenheit(tempdataMin);
+    temperatureInfoMin.textContent = `Temperature Min: ${temperatureMin.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+
+    const temperatureInfoMax = this.container.querySelector("p:nth-child(4)");
+    const tempdataMax = this.dataTempMax;
+    const temperatureMax = toggleInput.checked ? celsius(tempdataMax) : fahrenheit(tempdataMax);
+    temperatureInfoMax.textContent = `Temperature Max: ${temperatureMax.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
   }
 }
 
-function celsius(tempdata) {
-  return tempdata - 273.15;
+function celsius(data) {
+  return data - 273.15;
 }
 
-function fahrenheit(tempdata) {
-  return (tempdata - 273.15) * (9 / 5) + 32;
+function fahrenheit(data) {
+  return (data - 273.15) * (9 / 5) + 32;
 }
 
 function convertTime(timestamp) {
@@ -200,4 +209,3 @@ function convertTime(timestamp) {
   };
   return date.toLocaleString("en-US", options);
 }
-
