@@ -1,8 +1,8 @@
 /* Global Styles */
 html{
   height: 100%;
-  background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
   font-size: 16px;
+  background-color: white;
 }
 
 body {
@@ -11,7 +11,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 #wrapper_main {
@@ -20,6 +20,7 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
 }
 
 /* HEAD CONTAINER */
@@ -147,16 +148,23 @@ body {
 
 
 /* Media Queries */
-@media (max-width: 576px) {
-  /* CSS rules for mobile devices */
+@media (min-width: 576px) {
+  /* CSS rules for devices up 576px */
+  html{
+    background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
+  }
 
   body{
-    margin-top: 50px;
+    margin-top: 100px;
   }
 
   h1 {
     font-size: 35px;
     margin-bottom: 20px;
+  }
+
+  #wrapper_main{
+    
   }
 
   .input_city {
