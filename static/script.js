@@ -8,37 +8,12 @@ let btn = document.querySelector("#fetchBtn");
 let hidB = document.getElementById("hidden");
 const slideGuides = document.getElementsByClassName("slide_guide");
 
+
 let i = 0;
 let dataObj;
 let todayTemp, tomorTemp, nextTemp;
 
-window.addEventListener("load", function() {
-  if (window.innerWidth >= 576) {
-    showSlideGuide1();
-  }else{
-    showSlideGuide2(); 
-  }
-});
-
-function showSlideGuide1() {
-  const slideGuide = document.createElement("div");
-  slideGuide.classList.add("slide_guide");
-  slideGuide.textContent = "Use left and right arrow keys to slide the container";
-  document.body.appendChild(slideGuide);
-
-
-}
-
-function showSlideGuide2() {
-  const slideGuide = document.createElement("div");
-  slideGuide.classList.add("slide_guide");
-  slideGuide.textContent = "Slide the container to see more info";
-  document.body.appendChild(slideGuide);
-
-
-}
-
-
+//GET VALUE FROM THE USER
 inputCity.addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
@@ -55,6 +30,7 @@ btn.addEventListener("click", function() {
   fetchWeather();
 });
 
+//BUTTON CONVERT UNIT
 toggleInput.addEventListener("change", function() {
   if (todayTemp) {
     todayTemp.updateTemperature();
@@ -67,6 +43,7 @@ toggleInput.addEventListener("change", function() {
   }
 });
 
+//RECIEVE DATA AND DEFINE dataObj.
 async function fetchWeather() {
   let input_user = inputCity.value;
   let apiKey = "8e715392ca450df5ba4cdaa47bd9978e";
@@ -83,16 +60,17 @@ async function fetchWeather() {
     updateWeatherData();
     fetchIcon();
     hidB.style.display = "block";
-    Array.from(slideGuides).forEach((slideGuide) => {
-      slideGuide.style.display = "block";
-    });
-  
+
+    const slideGuideElement = document.getElementsByClassName("slide_guide")[0];
+    slideGuideElement.style.display = "block";
+    
 
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 }
 
+//GET ICON API
 async function fetchIcon() {
   if (!dataObj || !dataObj.list) {
     console.log("Invalid dataObj structure");
@@ -226,6 +204,7 @@ class infoWeather {
   }
 }
 
+//CONVERT UNITS
 function celsius(data) {
   return data - 273.15;
 }
@@ -242,4 +221,31 @@ function convertTime(timestamp) {
     day: "numeric"
   };
   return date.toLocaleString("en-US", options);
+}
+
+//CHECK SCREEN SIZE
+window.addEventListener("load", function() {
+  if (window.innerWidth >= 576) {
+    showSlideGuide1();
+  } else {
+    showSlideGuide2();
+  }
+});
+
+function showSlideGuide1() {
+  const slideGuide = document.createElement("div");
+  slideGuide.classList.add("slide_guide");
+  slideGuide.textContent = "Use left and right arrow keys to slide the container";
+  const wrapperMain = document.getElementById("wrapper_main");
+  wrapperMain.appendChild(slideGuide);
+
+}
+
+function showSlideGuide2() {
+  const slideGuide = document.createElement("div");
+  slideGuide.classList.add("slide_guide");
+  slideGuide.textContent = "Slide the container to see more info";
+  const wrapperMain = document.getElementById("wrapper_main");
+  wrapperMain.appendChild(slideGuide);
+
 }
