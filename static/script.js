@@ -2,11 +2,11 @@ const inputCity = document.querySelector("#input_city");
 const info1 = document.getElementById("info1");
 const info2 = document.getElementById("info2");
 const info3 = document.getElementById("info3");
-const toggleInput = document.querySelector(".toggle-input");
-const toggleLabel = document.querySelector(".toggle-label");
+const toggleInput = document.getElementsByClassName("toggle-input")[1];
+
 let btn = document.querySelector("#fetchBtn");
 let hidB = document.getElementById("hidden");
-const slideGuides = document.getElementsByClassName("slide_guide");
+
 
 
 let i = 0;
@@ -59,7 +59,7 @@ async function fetchWeather() {
     console.log(dataObj);
     updateWeatherData();
     fetchIcon();
-    hidB.style.display = "block";
+    hidB.style.display = "flex";
 
     const slideGuideElement = document.getElementsByClassName("slide_guide")[0];
     slideGuideElement.style.display = "block";
@@ -223,29 +223,4 @@ function convertTime(timestamp) {
   return date.toLocaleString("en-US", options);
 }
 
-//CHECK SCREEN SIZE
-window.addEventListener("load", function() {
-  if (window.innerWidth >= 576) {
-    showSlideGuide1();
-  } else {
-    showSlideGuide2();
-  }
-});
 
-function showSlideGuide1() {
-  const slideGuide = document.createElement("div");
-  slideGuide.classList.add("slide_guide");
-  slideGuide.textContent = "Use left and right arrow keys to slide the container";
-  const wrapperMain = document.getElementById("wrapper_main");
-  wrapperMain.appendChild(slideGuide);
-
-}
-
-function showSlideGuide2() {
-  const slideGuide = document.createElement("div");
-  slideGuide.classList.add("slide_guide");
-  slideGuide.textContent = "Slide the container to see more info";
-  const wrapperMain = document.getElementById("wrapper_main");
-  wrapperMain.appendChild(slideGuide);
-
-}

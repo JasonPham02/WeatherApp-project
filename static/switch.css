@@ -3,7 +3,7 @@
   display: none;
 }
 
-.toggle {
+.toggle{
   position: relative;
   display: block;
   width: 80px;
@@ -19,6 +19,18 @@
   left: 0;
   opacity: 0;
 }
+
+#graph .toggle-label {
+  position: relative;
+  display: flex;
+  height: inherit;
+  font-size: 18px;
+  background: black;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 3px
+  rgba(0, 0, 0, 0.15);
+  margin-top: 10px;
+}
 .toggle-label {
   position: relative;
   display: flex;
@@ -30,6 +42,7 @@
   rgba(0, 0, 0, 0.15);
   margin-top: 10px;
 }
+
 .toggle-label:before,
 .toggle-label:after {
   position: absolute;
@@ -38,6 +51,24 @@
   margin-top: -.5em;
   line-height: 1;
 }
+
+/* GRAPH BUTTON */
+
+#graph .toggle-label:before {
+  content: attr(OFF);
+  right: 10px;
+  color: #fff;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+}
+
+#graph .toggle-label:after {
+  content: attr(ON);
+  left: 10px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+}
+/* GRAPH BUTTON */
+
 .toggle-label:before {
   content: attr(celsius);
   right: 20px;
@@ -54,12 +85,18 @@
 .toggle-input:checked~.toggle-label {
   background: green;
 }
+
+#graph .toggle-input:checked~.toggle-label {
+  background: green;
+}
+
 .toggle-input:checked~.toggle-label:before {
   opacity: 0;
 }
 .toggle-input:checked~.toggle-label:after {
   opacity: 1;
 }
+
 .toggle-handle {
   position: absolute;
   top: 23px;
