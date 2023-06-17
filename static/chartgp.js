@@ -1,3 +1,4 @@
+
 const bodyHTML = document.querySelector("body")
 const toggleInput0 = document.getElementsByClassName("toggle-input")[0];
 const wrapperMain = document.getElementsByClassName("wrapper_main")[0];
@@ -47,8 +48,8 @@ toggleInput0.addEventListener("change", function(){
         chartContainer.appendChild(canvasElement);
 
         const ctx = canvasElement.getContext("2d");
+        console.log(dataObj);
         
-
         new Chart(ctx, {
           type: 'bar',
           data: {
@@ -56,13 +57,13 @@ toggleInput0.addEventListener("change", function(){
             datasets: [{
               label: '# of Votes',
               data: [12, 19, 3, 5, 2, 3],
-              borderWidth: 1
+              borderWidth: 3
             }]
           },
           options: {
             scales: {
               y: {
-                beginAtZero: false
+                beginAtZero: true
               }
             }
           }
@@ -77,3 +78,4 @@ toggleInput0.addEventListener("change", function(){
         chartContainer.innerHTML = ''; // Clear the canvas element
     }
 });
+
