@@ -2,12 +2,10 @@ const inputCity = document.querySelector("#input_city");
 const info1 = document.getElementById("info1");
 const info2 = document.getElementById("info2");
 const info3 = document.getElementById("info3");
-const toggleInput = document.getElementsByClassName("toggle-input")[1];
+const toggleInputDEGREE = document.getElementsByClassName("toggle-input")[1];
 
 let btn = document.querySelector("#fetchBtn");
 let hidB = document.getElementById("hidden");
-
-
 
 let i = 0;
 let dataObj;
@@ -18,6 +16,7 @@ inputCity.addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     event.preventDefault();
     fetchWeather();
+    refreshChart();
   }
 });
 
@@ -28,10 +27,14 @@ btn.addEventListener("click", function() {
     return false;
   }
   fetchWeather();
+  refreshChart();
+
 });
 
+
+
 //BUTTON CONVERT UNIT
-toggleInput.addEventListener("change", function() {
+toggleInputDEGREE.addEventListener("change", function() {
   if (todayTemp) {
     todayTemp.updateTemperature();
   }
@@ -189,18 +192,18 @@ class infoWeather {
   updateTemperature() {
     const temperatureInfo = this.container.querySelector("p:nth-child(2)");
     const tempdata = this.dataTemp;
-    const temperature = toggleInput.checked ? celsius(tempdata) : fahrenheit(tempdata);
-    temperatureInfo.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+    const temperature = toggleInputDEGREE.checked ? celsius(tempdata) : fahrenheit(tempdata);
+    temperatureInfo.textContent = `Temperature: ${temperature.toFixed(2)} ${toggleInputDEGREE.checked ? '°C' : '°F'}`;
 
     const temperatureInfoMin = this.container.querySelector("p:nth-child(3)");
     const tempdataMin = this.dataTempMin;
-    const temperatureMin = toggleInput.checked ? celsius(tempdataMin) : fahrenheit(tempdataMin);
-    temperatureInfoMin.textContent = `Temperature Min: ${temperatureMin.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+    const temperatureMin = toggleInputDEGREE.checked ? celsius(tempdataMin) : fahrenheit(tempdataMin);
+    temperatureInfoMin.textContent = `Temperature Min: ${temperatureMin.toFixed(2)} ${toggleInputDEGREE.checked ? '°C' : '°F'}`;
 
     const temperatureInfoMax = this.container.querySelector("p:nth-child(4)");
     const tempdataMax = this.dataTempMax;
-    const temperatureMax = toggleInput.checked ? celsius(tempdataMax) : fahrenheit(tempdataMax);
-    temperatureInfoMax.textContent = `Temperature Max: ${temperatureMax.toFixed(2)} ${toggleInput.checked ? '°C' : '°F'}`;
+    const temperatureMax = toggleInputDEGREE.checked ? celsius(tempdataMax) : fahrenheit(tempdataMax);
+    temperatureInfoMax.textContent = `Temperature Max: ${temperatureMax.toFixed(2)} ${toggleInputDEGREE.checked ? '°C' : '°F'}`;
   }
 }
 
@@ -213,6 +216,10 @@ function fahrenheit(data) {
   return (data - 273.15) * (9 / 5) + 32;
 }
 
+function convertINGH (data) {
+  return (data / 33.8639)
+}
+
 function convertTime(timestamp) {
   const date = new Date(timestamp * 1000);
   const options = {
@@ -223,4 +230,9 @@ function convertTime(timestamp) {
   return date.toLocaleString("en-US", options);
 }
 
-
+//SUPPORT FUNCTION 
+function refreshChart(){
+  if (slideContainer.style.display === "none"){
+    handleToggleInputCHECKED();
+  }
+}
