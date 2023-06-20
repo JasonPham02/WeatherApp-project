@@ -1,7 +1,8 @@
 from flask import Flask, render_template, send_from_directory, request
 import requests
+import sqlite3
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -20,6 +21,10 @@ def after_request(response):
 def weather():
     return render_template("index.html")
 
+@app.route("/feedback")
+def feedback():
+    return render_template("feedback.html")
+
 
 @app.route('/static/<path:path>')
 def serve_static(path):
@@ -28,5 +33,7 @@ def serve_static(path):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
+
+
 
 

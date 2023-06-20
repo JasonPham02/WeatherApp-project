@@ -32,7 +32,7 @@ toggleInputCHART.addEventListener("change", function(){
     wrapperMain.style.background = 'white';
         
     if (window.innerWidth >= 576){
-        document.body.style.marginTop = "50px"
+        document.body.style.marginTop = "0px"
         wrapperMain.style.minWidth = "700px"
     }
 
@@ -51,7 +51,7 @@ toggleInputCHART.addEventListener("change", function(){
 
  function handleToggleInputUNCHECKED() {
     if (window.innerWidth >= 576){
-        document.body.style.marginTop = "100px"
+        document.body.style.marginTop = "0px"
         wrapperMain.style.minWidth = "500px"
     }
     chartContainer.style.display = 'none';

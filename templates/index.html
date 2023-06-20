@@ -2,27 +2,37 @@
 <html>
 <head>
   <title>Weather App</title>
-    <link rel="stylesheet" type="text/css" href="static/style.css">
-    <link rel="stylesheet" type="text/css" href="static/switch.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='switch.css') }}">
+
+
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 </head>
 
 <body>
-<div id="wrapper_main">
 
-  <div id="head-container">
-    <div id="firsth1"> 
-      <h1>Weather App</h1>
-    </div>
-
-    <div id="icon-div">
-
-    </div>
-    
-    <div id="head-info">
-
-    </div>
+  <div class="topnav">
+    <a class="active" href="/">Home</a>
+    <a href="/feedback">feedback</a>
   </div>
+
+
+  <div class="wrapper_main">
+
+    <div id="head-container">
+      <div id="firsth1"> 
+        <h1>Weather App</h1>
+      </div>
+
+      <div id="icon-div">
+
+      </div>
+    
+      <div id="head-info">
+
+      </div>
+
+    </div>
     
 
   <div class="input-container">
@@ -30,8 +40,11 @@
     <button id="fetchBtn" action="GET">Fetch Weather</button>
   </div>
 
-  <div id="slide-container">
+  <div id="chart-container"> 
 
+  </div>
+
+  <div id="slide-container">
     <div class="weatherinforContainer" id="info1">
 
     </div>
@@ -43,10 +56,19 @@
     <div class="weatherinforContainer" id="info3">
       
     </div>
-
   </div>
 
   <div id="hidden">
+
+    <div id="graph">
+      <p>Graph:</p>
+      <label class="toggle">
+        <input class="toggle-input" type="checkbox" />
+        <span class="toggle-label" ON="ON" OFF="OFF"></span>
+        <span class="toggle-handle"></span>
+      </label>
+    </div>
+
     <label class="toggle">
       <input class="toggle-input" type="checkbox" />
       <span class="toggle-label" celsius="&#8451" fahrenheit="&#8457"></span>
@@ -54,8 +76,11 @@
     </label>
   </div>
 
-</div>
-  <script src="static/script.js"></script>
+  </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='chartgp.js') }}"></script>
+    
 </body>
 </html>
 
