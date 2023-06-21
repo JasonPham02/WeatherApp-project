@@ -1,0 +1,32 @@
+html{
+    height: 100%;
+    background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
+    font-size: 16px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    margin-top: 10%;
+    font-size: 2em;
+
+    color: white;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wrapper p {
+    margin-top: 0px;
+    text-align: center;
+}
+
+@media (max-width: 576px) {
+     /* CSS rules for MOBILE DEVICES */
+}

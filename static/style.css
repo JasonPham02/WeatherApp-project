@@ -211,15 +211,12 @@ body {
 }
 /* BUTTON SWITCH, GRAPH */
 
+
 /* Media Queries */
 @media (min-width: 576px) {
   /* CSS rules for devices up 576px */
   html{
     background: linear-gradient(180deg, #2E85EC 42.69%, rgba(82, 165, 175, 0.72) 84.14%);
-  }
-
-  body{
-    
   }
   .topnav{
     background: none;
