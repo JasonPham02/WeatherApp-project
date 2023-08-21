@@ -1,5 +1,4 @@
 # WEATHER APP project
-## Video Demo:  <https://youtu.be/I1o_7W-sWWc>
 ## Web App Link:
 https://cube5881.pythonanywhere.com/
 ## Description:
