@@ -49,8 +49,7 @@ toggleInputDEGREE.addEventListener("change", function() {
 //RECIEVE DATA AND DEFINE dataObj.
 async function fetchWeather() {
   let input_user = inputCity.value;
-  let apiKey = "8e715392ca450df5ba4cdaa47bd9978e";
-  let apiData = `https://api.openweathermap.org/data/2.5/forecast?q=${input_user}&appid=${apiKey}`;
+  let apiData = '/weather_data?city=${input_user}';
 
   try {
     const responseData = await fetch(apiData);

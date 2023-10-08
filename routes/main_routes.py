@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify, request
+import os  
+import requests
 
 main_routes = Blueprint('main', __name__)
 
@@ -9,3 +11,22 @@ def weather():
 @main_routes.route('/thankyou')
 def thankyou():
     return render_template("thankyou.html")
+
+@main_routes.route('/get_weather', methods=['GET'])
+def get_weather():
+    city = request.args.get('city')
+    
+    #Fetch the API key from the environment variable
+    api_key = os.environ.get("OPENWEATHER_API_KEY")
+
+    #Call the OpenWeather API
+    base_url = 'http://api.openweathermap.org/data/2.5/weather'
+    complete_url = f"{base_url}?q={city}&appid={api_key}"
+    
+    response = requests.get(complete_url)
+    data = response.json()
+    
+    return jsonify(data)
+        
+        
+    

@@ -1,12 +1,14 @@
 from flask import Flask, render_template, g
 import sqlite3
+import os
+
 
 def create_app():
     app = Flask(__name__)
 
     # Configuration
     app.config["TEMPLATES_AUTO_RELOAD"] = True
-    app.config["DATABASE"] = "WeatherApp.db"
+    app.config["DATABASE"] = os.environ.get("DATABASE_URL", "default.db")
 
 
     # Connect to the database
