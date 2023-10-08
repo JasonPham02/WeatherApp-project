@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/jasonpham/VS_CODE_LOCAL/finalprojectcs50/venv"
+VIRTUAL_ENV="/mnt/c/Projects/WeatherApp-project/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

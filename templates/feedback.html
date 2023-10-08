@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Weather App</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='feedbackform.css') }}">
+{% extends "base.html" %}
 
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-</head>
+{% set active_page = "feedback" %}
+<!-- display error message -->
+{% if error_message %}
+     <div class="error_message">
+        {{ error_message }}
+     </div>
+{% endif %}
 
-<body>
-
-  <div class="topnav">
-    <a href="/">Home</a>
-    <a class="active" href="/feedback">feedback</a>
-  </div>
-
-
+{% block content %}
+  
 <div class="wrapper_main">
 
     <div id="head-container">
@@ -46,10 +40,8 @@
       </form>
   </div>
     
-    
-
 </div>
-</body>
-</html>
+{% endblock %}
+
 
 

@@ -1,55 +1,41 @@
-from flask import Flask, render_template, send_from_directory, request, g
+from flask import Flask, render_template, g
 import sqlite3
 
-app = Flask(__name__, static_folder='static')
+def create_app():
+    app = Flask(__name__)
 
-# Configuration
-app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.config["DATABASE"] = "WeatherApp.db"
+    # Configuration
+    app.config["TEMPLATES_AUTO_RELOAD"] = True
+    app.config["DATABASE"] = "WeatherApp.db"
 
-# Connect to the database
-def get_db():
-    db = getattr(g, "_database", None)
-    if db is None:
-        db = g._database = sqlite3.connect(app.config["DATABASE"])
-    return db
 
-# Close the database connection at the end of each request
-@app.teardown_appcontext
-def close_db(error):
-    db = getattr(g, "_database", None)
-    if db is not None:
-        db.close()
+    # Connect to the database
+    def get_db():
+        db = getattr(g, "_database", None)
+        if db is None:
+            db = g._database = sqlite3.connect(app.config["DATABASE"]) 
+        return db
+    app.get_db = get_db
 
-@app.route('/')
-def weather():
-    return render_template("index.html")
+    # Close the database connection at the end of each request
+    @app.teardown_appcontext
+    def close_db(error):
+        db = getattr(g, "_database", None)
+        if db is not None:
+            db.close()
 
-@app.route("/feedback", methods=["GET", "POST"])
-def feedback():
-    if request.method == "POST":
-        firstname = request.form.get("first-name")
-        lastname = request.form.get("last-name")
-        emailuser = request.form.get("email")
-        messageuser = request.form.get("message")
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute("INSERT INTO users (first_name, last_name, email) VALUES (?, ?, ?)",
-                       (firstname, lastname, emailuser))
-        user_id = cursor.lastrowid  # Get the last inserted user_id
-        cursor.execute("INSERT INTO feedback (user_id, message) VALUES (?, ?)", (user_id, messageuser))
-        db.commit()
-        return render_template("thankyou.html")
-    else:
-        return render_template("feedback.html")
+    # Register the blueprints
+    from routes.main_routes import main_routes
+    from routes.feedback_routes import feedback_routes
+    app.register_blueprint(main_routes)
+    app.register_blueprint(feedback_routes)
 
-@app.route('/thankyou')
-def thankyou():
-    return render_template("thankyou.html")
-
-@app.route('/static/<path:path>')
-def serve_static(path):
-    return send_from_directory('static', path)
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.html'), 404
+    
+    return app
 
 if __name__ == '__main__':
+    app = create_app()
     app.run(host='0.0.0.0', port=5001, debug=True)

@@ -1,0 +1,29 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp</title>
+    <!-- Common CSS and JS-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='switch.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='feedbackform.css') }}">
+</head>
+<body>
+    <header>
+        <!-- Common header content goes here -->
+        <div class="topnav">
+            <a href="/" {% if active_page == "home" %}class="active"{% endif %}>Home</a>
+            <a href="/feedback" {% if active_page == "feedback" %}class="active"{% endif %}>Feedback</a>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+    
+    <footer>
+        <!-- Common footer content goes here -->
+    </footer>
+</body>
+</html>

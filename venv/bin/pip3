@@ -1,4 +1,4 @@
-#!/Users/jasonpham/VS_CODE_LOCAL/finalprojectcs50/venv/bin/python3.10
+#!/mnt/c/Projects/WeatherApp-project/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
