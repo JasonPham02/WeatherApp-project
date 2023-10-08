@@ -1,6 +1,8 @@
 from flask import Flask, render_template, g
 import sqlite3
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def create_app():
@@ -9,7 +11,6 @@ def create_app():
     # Configuration
     app.config["TEMPLATES_AUTO_RELOAD"] = True
     app.config["DATABASE"] = os.environ.get("DATABASE_URL", "default.db")
-
 
     # Connect to the database
     def get_db():

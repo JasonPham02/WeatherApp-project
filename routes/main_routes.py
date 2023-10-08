@@ -14,19 +14,25 @@ def thankyou():
 
 @main_routes.route('/get_weather', methods=['GET'])
 def get_weather():
+    
+    print(os.environ.get("OPENWEATHER_API_KEY"))
     city = request.args.get('city')
     
     #Fetch the API key from the environment variable
     api_key = os.environ.get("OPENWEATHER_API_KEY")
 
     #Call the OpenWeather API
-    base_url = 'http://api.openweathermap.org/data/2.5/weather'
+    base_url = 'http://api.openweathermap.org/data/2.5/forecast'
     complete_url = f"{base_url}?q={city}&appid={api_key}"
     
+    print(complete_url)
+
     response = requests.get(complete_url)
     data = response.json()
     
     return jsonify(data)
+    
+    
         
         
     
