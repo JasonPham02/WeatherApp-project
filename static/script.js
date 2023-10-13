@@ -54,9 +54,13 @@ async function fetchWeather() {
   try {
     const responseData = await fetch(apiData);
     if (!responseData.ok) {
+      //Error handling
+      const errorData = await responseData.json();
+      alert(`Error: ${errorData.message}`)
       console.log("Data invalid");
       return;
     }
+
     dataObj = await responseData.json();
     console.log(dataObj);
     updateWeatherData();
@@ -65,10 +69,10 @@ async function fetchWeather() {
 
     const slideGuideElement = document.getElementsByClassName("slide_guide")[0];
     slideGuideElement.style.display = "block";
-    
 
   } catch (error) {
     console.error("Error fetching data:", error);
+    alert("An error occurred while fetching data. Please try again later.")
   }
 }
 

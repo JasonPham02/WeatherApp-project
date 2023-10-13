@@ -15,7 +15,6 @@ def thankyou():
 @main_routes.route('/get_weather', methods=['GET'])
 def get_weather():
     
-    print(os.environ.get("OPENWEATHER_API_KEY"))
     #Fetch the API key from the environment variable and check to see if the api key is missing
     api_key = os.environ.get("OPENWEATHER_API_KEY")
     
