@@ -34,14 +34,13 @@ def get_weather():
     #Make the API call
     response = requests.get(complete_url)
     
-    #Backend error handling
-    if response.status_code != 200:
-        return jsonify({"error": "There was an error processing with API call"}), 400
-    
     #Parse the response
     data = response.json()
-    if 'list' not in data:
-        return jsonify({"error": "Invalid data received from OpenWeather API"}), 500
+    
+    
+    #check if data is valid in api call
+    if 'cod' not in data and data['cod'] == '400':
+        return jsonify({"error": "City not found"}), 400
     
     return jsonify(data)
     

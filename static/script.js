@@ -56,8 +56,7 @@ async function fetchWeather() {
     if (!responseData.ok) {
       //Error handling
       const errorData = await responseData.json();
-      alert(`Error: ${errorData.message}`)
-      console.log("Data invalid");
+      alert(errorData.error || "An error occurred while fetching data. Please try again later.")
       return;
     }
 
@@ -72,7 +71,7 @@ async function fetchWeather() {
 
   } catch (error) {
     console.error("Error fetching data:", error);
-    alert("An error occurred while fetching data. Please try again later.")
+    alert("Please enter a valid name")
   }
 }
 

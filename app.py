@@ -4,10 +4,13 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-
+#API Optimizing with Caching
+#configure the cache
+    
 def create_app():
     app = Flask(__name__)
-
+    # Configure cache
+    
     # Configuration
     app.config["TEMPLATES_AUTO_RELOAD"] = True
     app.config["DATABASE"] = os.environ.get("DATABASE_URL", "default.db")
