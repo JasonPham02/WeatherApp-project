@@ -49,7 +49,7 @@ toggleInputDEGREE.addEventListener("change", function() {
 //RECIEVE DATA AND DEFINE dataObj.
 async function fetchWeather() {
   let input_user = inputCity.value;
-  let apiData = `https://weatherappjp.azurewebsites.net/get_weather?city=${input_user}`;
+  let apiData = `get_weather?city=${input_user}`;
 
   try {
     const responseData = await fetch(apiData);
