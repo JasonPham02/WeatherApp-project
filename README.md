@@ -1,7 +1,9 @@
 # WEATHER APP project
 ## Web App Link:
-https://weatherappjp.azurewebsites.net/
 
+AWS: https://weatherappjp.azurewebsites.net/
+
+PythonAnyWhere: https://cube5881.pythonanywhere.com/
 
 ## Description:
 The Weather App is a web application that allows users to retrieve current weather information and forecasts for different locations. It provides a user-friendly interface to view weather details and offers additional features for enhanced user experience.
