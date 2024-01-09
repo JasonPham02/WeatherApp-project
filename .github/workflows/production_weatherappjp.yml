@@ -7,7 +7,7 @@ name: Build and deploy Python app to Azure Web App - WeatherAppJP
 on:
   push:
     branches:
-      - main
+      - production
   workflow_dispatch:
 
 jobs:
