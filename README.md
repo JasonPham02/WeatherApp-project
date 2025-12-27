@@ -1,7 +1,5 @@
 # WEATHER APP project
 ## Web App Link:
-Azure: https://weatherappjp.azurewebsites.net/
-
 PythonAnyWhere: https://cube5881.pythonanywhere.com/
 
 ## Description:
